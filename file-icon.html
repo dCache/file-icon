@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="file-icons.html">
@@ -26,42 +26,55 @@ supplied file's' MIME type.
     </template>
 
     <script>
-        Polymer({
-            is: 'file-icon',
-
-            properties: {
-                /**
-                 * file MIME type
-                 * @type {String}
-                 */
-                mimeType: {
-                    type: String,
-                },
-
-                /**
-                 * @type {!Polymer.IronMeta}
-                 */
-                _meta: {
-                    value: Polymer.Base.create('iron-meta', {type: 'iconset'})
-                }
-            },
-
-            observers: [
-                '_updateIcon(mimeType)'
-            ],
-
-            ready: function()
+        class FileIcon extends Polymer.Element
+        {
+            constructor()
             {
-                if (this.mimeType === undefined){
+                super();
+            }
+            static get is()
+            {
+                return 'file-icon';
+            }
+            static get properties()
+            {
+                return {
+                    /**
+                     * file MIME type
+                     * @type {String}
+                     */
+                    mimeType: {
+                        type: String
+                    },
+
+                    /**
+                     * @type {!Polymer.IronMeta}
+                     */
+                    _meta: {
+                        value: Polymer.Base.create('iron-meta', {type: 'iconset'})
+                    }
+                }
+            }
+
+            static get observers()
+            {
+                return [ '_updateIcon(mimeType)' ];
+            }
+
+            ready()
+            {
+                super.ready();
+                if (this.mimeType === undefined) {
                     this.style.fill = "#ccc";
                     this._iconName = "unknown";
                     this._iconset = this._meta.byKey('files');
                     this._iconset.applyIcon(this, this._iconName);
                     this.updateStyles();
-                    this.unlisten(window, 'iron-iconset-added', '_updateIcon');
+                    window.removeEventListener('iron-iconset-added', this._updateIcon);
                 }
-            },
-            _updateIcon: function(mimeType) 
+            }
+
+            _updateIcon(mimeType) 
             {
                 if (mimeType.startsWith("video/")) {
                     this.style.fill = "#a49f63";
@@ -81,7 +94,7 @@ supplied file's' MIME type.
                     this.style.fill = "#747474";
                     this._iconName = "text";
                 } else if (mimeType.startsWith("application/")) {
-                    var subtype = mimeType.substring(mimeType.lastIndexOf('/')+1, mimeType.length);
+                    const subtype = mimeType.substring(mimeType.lastIndexOf('/')+1, mimeType.length);
                     switch(subtype.toLowerCase()) {
                         case "zip":
                         case "x-tar":
@@ -135,8 +148,9 @@ supplied file's' MIME type.
                 this._iconset = this._meta.byKey('files');
                 this._iconset.applyIcon(this, this._iconName);
                 this.updateStyles();
-                this.unlisten(window, 'iron-iconset-added', '_updateIcon');
+                window.removeEventListener('iron-iconset-added', this._updateIcon);
             }
-        });
+        }
+        window.customElements.define(FileIcon.is, FileIcon);
     </script>
 </dom-module>
