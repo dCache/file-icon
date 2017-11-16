@@ -83,7 +83,7 @@ supplied file's' MIME type.
                     this.style.fill = "#38d8bc";
                     this._iconName = "audio";
                 } else if (mimeType.startsWith("image/")) {
-                    if (mimeType.substring(mimeType.lastIndexOf('/')+1, mimeType.length) == "gif") {
+                    if (mimeType.substring(mimeType.lastIndexOf('/')+1, mimeType.length) === "gif") {
                         this._iconName = "gif";
                         this.style.fill = "#cc68c0";
                     } else {
