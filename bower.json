@@ -3,9 +3,9 @@
   "description": "Icons of diffrent file types",
   "main": "file-icon.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.2",
+    "polymer": "Polymer/polymer#^2.0.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
-    "iron-meta": "PolymerElements/iron-meta#^2.0.2"
+    "iron-meta": "PolymerElements/iron-meta#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
