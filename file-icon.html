@@ -124,6 +124,15 @@ supplied file's' MIME type.
                             this.style.fill = "#1e90ff";
                             this._iconName = "text";
                             break;
+                            case "x-root":
+                            this._iconName = "root";
+                            this.style.fill = "#1fd2e3";
+                            break;
+                        case "x-hdf":
+                        case "x-hdf5":
+                            this._iconName = "hdf";
+                            this.style.fill = "#f77070";
+                            break;
                         case "vnd.dcache.folder":
                             this._iconName = "folder";
                             this.style.fill = "#4FC3F7";
